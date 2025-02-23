@@ -1,0 +1,188 @@
+@import url('https://fonts.googleapis.com/css2?family=Poppins:wght@400;500;600;700&display=swap');
+
+* {
+    margin: 0;
+    padding: 0;
+    box-sizing: border-box;
+    font-family: 'Poppins', sans-serif;
+}
+body{
+    background: url("../img/newbg.jpg");
+    background-position: center;
+    background-size: cover;
+    background-attachment: fixed;
+    background-repeat: no-repeat;
+
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    min-height: 100vh;
+    padding: 0 20px;
+}
+.top-nav{
+    position: fixed;
+    top: 0;
+    width: 100%;
+    height: 80px;
+    border-bottom: 1px solid rgba(255,255,255,0.3);
+    display: inline-flex;
+    backdrop-filter: blur(5px);
+    padding: 10px 10x;
+    transition: all .55s ease;
+    overflow: hidden;
+}
+.logo{
+    margin: 10px -10px 0 20px;
+}
+.top-nav h1{
+    margin: 0px -10px 0 30px;
+    font-size: 35px;
+    color: #1b6d03;
+}
+.top-nav h3{
+    margin: -10px -10px -10px 60px;
+    font-size: 25px;
+    color: #1b6d03;
+}
+.container{
+    display: flex;
+    height: 630px;
+    width: 100%;
+    margin-top: 90px;
+    gap: 10px;
+}
+.left-nav{
+    width: 20%;
+    padding: 10px;
+    gap: 20px;
+}
+.profile{
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    height: 30%;
+}
+.profile-image{
+    height: 90px;
+    width: 90px;
+    border-style: groove;
+    border-radius: 180px;
+    margin-bottom: 10px;
+}
+.navs{
+    height: 55%;
+}
+.nav{
+    display: inline-block;
+    justify-content: center;
+    height: 90px;
+    width: 70px;
+    backdrop-filter: blur(10px);
+    border-width: 1px;
+    border: 1px solid rgba(255,255,255,0.3);
+    border-radius: 12px;
+    margin: 5px;
+    text-align: center;
+}
+.navs .icon{
+    height: 40px;
+    padding: 25px;
+}
+.navs h6{
+    padding-top: 10px;
+}
+.navs a{
+    text-decoration: none;
+}
+.logout a{
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    height: 15%;
+    text-decoration: none;
+}
+.input-logout{
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    gap: 10px;
+    width: 80%;
+    height: 40px;
+    padding: 0 15px;
+    color: #010046;
+    font-weight: 500;
+    border-radius: 10px;
+    border: none;
+    box-shadow: 0 0 10px rgba(0,0,0,0.2);
+    cursor: pointer;
+    transition: .3s;
+}
+.input-logout:hover{
+    gap: 15px;
+}
+.container-container{
+    width: 80%;
+    border: 1px solid rgba(255,255,255,0.3);
+    border-radius: 20px;
+    backdrop-filter: blur(10px);
+    padding: 10px 20px;
+    overflow: hidden;
+}
+.details{
+    width: 100%;
+    height: 100%;
+    padding-top: 15px;
+}
+.admininterface {
+    background-color: #fff4;
+    padding: 1rem 1.2rem;
+    border-radius: 1rem;
+    margin-top: 15px;
+}
+.gatetitle{
+    display: flex;
+}
+.gatetitle div{
+    width: 50%;
+}
+.gatetitle h1{
+    font-size: xx-large;
+}
+.gatetitleinfo{
+    display: flex;
+    margin-top: 15px;
+    height: 300px;
+    align-items: center;
+}
+.gateone {
+    width: 50%;
+    padding: 10px 10px;
+}
+.gateone img {
+    width: 190px;
+    height: 250px;
+}
+.gatetwo {
+    width: 50%;
+    padding: 10px 10px;
+}
+.gatetwo img {
+    width: 190px;
+    height: 250px;
+}
+.gateinfo {
+    display: flex;
+}
+.gatedata {
+    padding: 20px 30px;
+}
+.gatedata h1{
+    font-weight: 900;
+    font-size: 30px;
+}
+.gatedata h2{
+    font-weight: 500;
+    font-size: 20px;
+}
+
+

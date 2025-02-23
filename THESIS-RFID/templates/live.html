@@ -1,0 +1,435 @@
+
+
+<!DOCTYPE html> 
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>RFID-Based Student Tracking System</title>
+
+    <link href='https://unpkg.com/boxicons@2.1.4/css/boxicons.min.css' rel='stylesheet'>
+    <link rel="stylesheet" href="../statics/css/styles.css">
+    <link rel="stylesheet" href="../statics/css/table.css">
+    <link rel="stylesheet" href="../statics/css/live.css">
+    <link rel="stylesheet" href="../statics/css/login.css">
+
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/jspdf/2.5.1/jspdf.umd.min.js"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/jspdf-autotable/3.5.18/jspdf.plugin.autotable.min.js"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/xlsx/0.17.3/xlsx.full.min.js"></script>
+    <style>
+        /* Simple modal styling */
+        .modal {
+            display: none; 
+            position: fixed; 
+            z-index: 1;
+            left: 0;
+            top: 0;
+            width: 100%;
+            height: 100%;
+            background-color: rgba(0,0,0,0.5);
+        }
+        .modal-content {
+            background-color: white;
+            margin: 15% auto;
+            padding: 20px;
+            border: 1px solid #888;
+            width: 30%;
+            text-align: center;
+            border-radius: 10px;
+        }
+        .close {
+            color: red;
+            float: right;
+            font-size: 28px;
+            cursor: pointer;
+        }
+    </style>
+    <script>
+        function openModal() {
+            document.getElementById("rfidModal").style.display = "block";
+            document.getElementById("modalRfidInput").focus(); // Focus on hidden RFID field
+        }
+
+        function closeModal() {
+            document.getElementById("rfidModal").style.display = "none";
+        }
+
+        // Capture scanned RFID and fill the form
+        document.addEventListener("DOMContentLoaded", function() {
+            const modalRfidInput = document.getElementById("modalRfidInput");
+            const mainRfidInput = document.getElementById("rfid");
+
+            modalRfidInput.addEventListener("input", function() {
+                if (modalRfidInput.value.length >= 8) {  // Assuming RFID length is 8+
+                    mainRfidInput.value = modalRfidInput.value;
+                    closeModal();  // Close modal after scanning
+                }
+            });
+        });
+    </script>
+</head>
+<body>
+    <div class="top-nav">
+        <div class="logo">
+            <img src="../statics/img/logo.png" class="psu-logo" height="65px">
+        </div>
+        <div class="name">
+            <h1>RFID-Based Student Tracking System</h1>
+            <h3>Bugallon Integrated School</h3>
+        </div>
+    </div>
+    <div class="container">
+        <div class="left-nav">
+            <div class="profile">
+                <img src="../statics/img/bg.jpg" class="profile-image">
+                <h2>Username</h2>
+            </div>
+            <div class="navs">
+                <a href="#dashboard">
+                    <div class="dashboard-nav nav">
+                        <i class='bx bxs-dashboard icon'></i>
+                        <h6>Dashboard</h6>
+                    </div>
+                </a>
+                <a href="#sections">
+                    <div class="sections-nav nav">
+                        <i class='bx bxs-time icon' ></i>
+                        <h6>Sections</h6>
+                    </div>
+                </a>
+                <a href="#students">
+                    <div class="students-nav nav">
+                        <i class='bx bxs-square-rounded icon'></i>
+                        <h6>Students</h6>
+                    </div>
+                </a>
+                <a href="#history">
+                    <div class="history-nav nav">
+                        <i class='bx bxs-square-rounded icon'></i>
+                        <h6>Log History</h6>
+                    </div>
+                </a>
+                <a href="#monitoring">
+                    <div class="monitoring-nav nav">
+                        <i class='bx bxs-square-rounded icon'></i>
+                        <h6>Monitoring</h6>
+                    </div>
+                </a>
+                <a href="#management">
+                    <div class="management-nav nav">
+                        <i class='bx bxs-square-rounded icon'></i>
+                        <h6>Data</h6>
+                    </div>
+                </a>
+                <a href="#users">
+                    <div class="users-nav nav">
+                        <i class='bx bxs-square-rounded icon'></i>
+                        <h6>Users</h6>
+                    </div>
+                </a>
+            </div>
+            <div class="logout">
+                 <form action="" method="post">
+                    <button type="submit" name="logout" class="input-logout">
+                        <span>Log Out</span>
+                    </button>
+                </form>
+            </div>
+        </div>
+        <div class="container-container">
+            <!------------------------------------------------------------------------------------------------------------------>
+            <div class="details" id="dashboard">
+                <section class="table__header">
+                    <h1>Dashboard</h1>
+                    <div class="input-group">
+                        <input type="search" placeholder="Search Data...">
+                        <img src="../statics/img/search.png" alt="search">
+                    </div>
+                </section>
+                <section class="live">
+                    <div class="live-box" id="inside">
+                        <h1 id="inside-count">0</h1>
+                        <h4>Students Inside</h4>
+                    </div>
+                    <div class="live-box" id="tlog">
+                        <h1 id="tlog-count">0</h1>
+                        <h4>Total Login</h4>
+                    </div>
+                    <div class="live-box" id="tstudents">
+                        <h1 id="tstudents-count">0</h1>
+                        <h4>Total Students</h4>
+                    </div>
+                </section>
+                <section class="table__body-dashboard">
+                    <table>
+                        <thead>
+                            <tr>
+                                <th> LRN <span class="icon-arrow">&UpArrow;</span></th>
+                                <th> NAME <span class="icon-arrow">&UpArrow;</span></th>
+                                <th> TIMESTAMP <span class="icon-arrow">&UpArrow;</span></th>
+                                <th> GATE <span class="icon-arrow">&UpArrow;</span></th>
+                                <th> ACTION <span class="icon-arrow">&UpArrow;</span></th>
+                            </tr>
+                        </thead>
+                        <tbody>
+                           
+                        </tbody>
+                    </table>
+                </section>
+            </div>
+            <!------------------------------------------------------------------------------------------------------------------>
+            <div class="details" id="sections">
+                <section class="table__header">
+                    <h1>Sections</h1>
+                    <div class="input-group">
+                        <input type="search" placeholder="Search Data...">
+                        <img src="../statics/img/search.png" alt="search">
+                    </div>
+                </section>
+                <section class="table__body-dashboard">
+                    <table>
+                        <thead>
+                            <tr>
+                                <th> GRADE LEVEL <span class="icon-arrow">&UpArrow;</span></th>
+                                <th> SECTION <span class="icon-arrow">&UpArrow;</span></th>
+                            </tr>
+                        </thead>
+                        <tbody>
+                               
+                        </tbody>
+                    </table>
+                </section>
+            </div>
+            <!------------------------------------------------------------------------------------------------------------------>
+            <div class="details" id="students">
+                <section class="table__header">
+                    <h1>Students List</h1>
+                    <div class="input-group">
+                        <input type="search" placeholder="Search Data...">
+                        <img src="../statics/img/search.png" alt="search">
+                    </div>
+                </section>
+                <section class="table__body-dashboard">
+                    <table>
+                        <thead>
+                            <tr>
+                                <th> LRN <span class="icon-arrow">&UpArrow;</span></th>
+                                <th> NAME <span class="icon-arrow">&UpArrow;</span></th>
+                                <th> GRADE <span class="icon-arrow">&UpArrow;</span></th>
+                                <th> SECTION <span class="icon-arrow">&UpArrow;</span></th>
+                                <th> RFID TAG <span class="icon-arrow">&UpArrow;</span></th>
+                            </tr>
+                        </thead>
+                        <tbody>
+                               
+                        </tbody>
+                    </table>
+                </section>
+            </div>
+            <!------------------------------------------------------------------------------------------------------------------>
+            <div class="details" id="monitoring">
+                <section class="table__header">
+                    <h1>Live Monitoring</h1>
+                    <div id="datetime">
+                        <div id="date-time">
+                            
+                        </div>
+                    </div>
+                </section>
+                <section class="live">
+                    <div class="live-box" id="inside">
+                        <h1 id="inside-count">0</h1>
+                        <h4>Students Inside</h4>
+                    </div>
+                    <div class="live-box" id="tlog">
+                        <h1 id="tlog-count">0</h1>
+                        <h4>Total Login</h4>
+                    </div>
+                    <div class="live-box" id="tstudents">
+                        <h1 id="tstudents-count">0</h1>
+                        <h4>Total Students</h4>
+                    </div>
+                </section>
+                <section class="admininterface">
+                    <div class="gatetitle">
+                        <div><h1>GATE 1</h1></div>
+                        <div><h1>GATE 2<h1></div>
+                    </div>
+                    <div class="gatetitleinfo">
+                        <div class="gateone">
+                            <section class="gateinterface">
+                                <div class="gateinfo">
+                                    <div class="gatephoto">
+                                        <img src="../statics/img/image.png" alt="">
+                                    </div>
+                                    <div class="gatedata">
+                                        <h1>VIRAY,</h1>
+                                        <h1>JOHN PAUL</h1>
+                                        <h2>101375130039</h2>
+                                        <h2>Grade 12</h2>
+                                        <h2>Cookery</h2>
+                                        <h1>IN</h1>
+                                    </div>
+                                </div>
+                            </section>
+                        </div>
+                        <div class="gatetwo">
+                            <section class="gateinterface">
+                                <div class="gateinfo">
+                                    <div class="gatephoto">
+                                        <img src="../statics/img/image.png" alt="">
+                                    </div>
+                                    <div class="gatedata">
+                                        <h1>VIRAY,</h1>
+                                        <h1>JOHN PAUL</h1>
+                                        <h2>101375130039</h2>
+                                        <h2>Grade 12</h2>
+                                        <h2>Cookery</h2>
+                                        <h1>OUT</h1>
+                                    </div>
+                                </div>
+                            </section>
+                        </div>
+                    </div>
+                </section>
+            </div>
+            <!------------------------------------------------------------------------------------------------------------------>
+            <div class="details" id="history">
+                <section class="table__header">
+                    <h1>Log History</h1>
+                    <div class="input-group">
+                        <input type="search" placeholder="Search Data...">
+                        <img src="../statics/img/search.png" alt="search">
+                    </div>
+                </section>
+                <section class="table__body">
+                    <table>
+                        <thead>
+                            <tr>
+                                <th> LRN <span class="icon-arrow">&UpArrow;</span></th>
+                                <th> NAME <span class="icon-arrow">&UpArrow;</span></th>
+                                <th> GRADE <span class="icon-arrow">&UpArrow;</span></th>
+                                <th> SECTION <span class="icon-arrow">&UpArrow;</span></th>
+                                <th> TIMESTAMP <span class="icon-arrow">&UpArrow;</span></th>
+                                <th> GATE <span class="icon-arrow">&UpArrow;</span></th>
+                                <th> ACTION <span class="icon-arrow">&UpArrow;</span></th>
+                            </tr>
+                        </thead>
+                        <tbody>
+                            
+                        </tbody>
+                    </table>
+                </section>
+            </div>
+            <!------------------------------------------------------------------------------------------------------------------>
+            <div class="details" id="management">
+                <section class="table__header">
+                    <h1>Data Management</h1>
+                    <div class="input-group">
+                        <input type="search" placeholder="Search Data...">
+                        <img src="../statics/img/search.png" alt="search">
+                    </div>
+                    <div class="export__file">
+                        <label for="export-file" class="export__file-btn" title="Export File"></label>
+                        <input type="checkbox" id="export-file">
+                        <div class="export__file-options">
+                            <label>Import As &nbsp; &#10140;</label>
+                            <label id="">INDIVIDUAL <img src="" alt=""></label>
+                            <label id="">EXCEL FORM <img src="" alt=""></label>
+                        </div>
+                    </div>
+                </section>
+                <section class="table__body">
+                    <table>
+                        <table>
+                            <div class="containers">
+                                <h1>STUDENT REGISTRATION</h1>
+                                <form id="registerForm" action="register.php" method="POST" enctype="multipart/form-data">
+                                    <div class="input-box">
+                                        <label for="lrn">Student Name</label><br>
+                                        <input class="input-field" type="text" name="name" placeholder="Enter parent name" required />
+                                    </div>
+                                    <div class="input-box">
+                                        <label>Parent Name</label><br>
+                                        <input class="input-field" type="text" name="parent_name" placeholder="Enter parent name" required />
+                                    </div>
+                                    <div class="input-box">
+                                            <label for="lrn">Learner Reference Number (LRN)</label><br>
+                                            <input class="input-field" type="text" name="lrn" id="lrn" placeholder="Enter Learner Reference Number" required />
+                                    </div>
+                                    <div class="column">
+                                        <div class="select-box">
+                                            <label for="grade">Grade</label><br>
+                                            <select name="grade" id="grade" onchange="fetchSections(this.value)">
+                                                <option value="">Select Grade</option>
+                                                <?php while ($row = $grades->fetch_assoc()): ?>
+                                                    <option value="<?= $row['id']; ?>"><?= $row['name']; ?></option>
+                                                <?php endwhile; ?>
+                                            </select><br>
+                                            <label for="section">Section</label><br>
+                                            <select name="section" id="section" required>
+                                                <option value="">Select Section</option>
+                                            </select><br>
+                                        </div>
+                                    </div>
+                                    <div class="column">
+                                        <label for="rfid">RFID</label><br>
+                                        <input class="input-field-label" type="text" id="rfid" name="rfid">
+                                        <button class="scanbutton" type="button" onclick="openModal()">Scan ID</button><br>
+                                    </div>
+    
+                                    <div class="column">
+                                        <label for="photo">Upload Photo</label><br>
+                                        <input  type="file" id="photo" name="photo" accept="image/*" required hidden>
+                                        <button class="scanbutton" type="button" onclick="document.getElementById('photo').click()">Choose File</button>
+                                        <span id="file-name">No file chosen</span>
+                                    </div>
+                                                                        
+                                    <div class="input-box">
+                                        <button type="submit" class="input-submit">
+                                            <span>Submit</span>
+                                        </button>
+                                    </div>
+                                </form>
+                            
+                            </div>  
+                        </table>         
+                </section>
+            </div>
+            <script>
+                document.getElementById('photo').addEventListener('change', function() {
+                    const fileName = this.files.length > 0 ? this.files[0].name : "No file chosen";
+                    document.getElementById('file-name').textContent = fileName;
+                });
+            </script>
+            <!------------------------------------------------------------------------------------------------------------------>
+            <div class="details" id="users">
+                <section class="table__header">
+                    <h1>Users</h1>
+                    <div class="input-group">
+                        <input type="search" placeholder="Search Data...">
+                        <img src="../statics/img/search.png" alt="search">
+                    </div>
+                </section>
+                <section class="table__body-dashboard">
+                    <table>
+                        <thead>
+                            <tr>
+                                <th> NAME <span class="icon-arrow">&UpArrow;</span></th>
+                                <th> USERNAME <span class="icon-arrow">&UpArrow;</span></th>
+                                <th> PASSWORD <span class="icon-arrow">&UpArrow;</span></th>
+                                <th> ROLE <span class="icon-arrow">&UpArrow;</span></th>
+                                <th> STUDENT ID <span class="icon-arrow">&UpArrow;</span></th>
+                            </tr>
+                        </thead>
+                        <tbody>
+                            
+                        </tbody>
+                    </table>
+                </section>
+            </div>
+        </div>
+    </div>
+ 
+</body>
+</html>

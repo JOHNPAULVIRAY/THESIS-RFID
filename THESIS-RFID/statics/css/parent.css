@@ -1,0 +1,402 @@
+@import url('https://fonts.googleapis.com/css2?family=Poppins:wght@400;500;600;700&display=swap');
+
+* {
+    margin: 0;
+    padding: 0;
+    box-sizing: border-box;
+    font-family: 'Poppins', sans-serif;
+}
+body{
+    background: url("../img/newbg.jpg");
+    background-position: center;
+    background-size: cover;
+    background-attachment: fixed;
+    background-repeat: no-repeat;
+
+    display: flex;
+    justify-content: center;
+    min-height: 100vh;
+    padding: 0 20px;
+}
+.top-nav{
+    position: fixed;
+    top: 0;
+    width: 100%;
+    height: 80px;
+    border-bottom: 1px solid rgba(255,255,255,0.3);
+    display: inline-flex;
+    backdrop-filter: blur(5px);
+    padding: 10px 10x;
+    transition: all .55s ease;
+    overflow: hidden;
+}
+.logo{
+    margin: 10px -15px 0 20px;
+}
+.top-nav h2{
+    margin: 10px 10px -20px 30px;
+    font-size: 20px;
+    color: #1b6d03;
+}
+.top-nav h6{
+    margin: 10px -10px 10px 40px;
+    font-size: 15px;
+    color: #1b6d03;
+}
+.studentinfo {
+    width: 100%;
+    display: inline-flex;
+    column-gap: 50px;
+}
+.container {
+    position: fixed;
+    width: 50%;
+    height: 180px;
+    border: 1px solid rgba(255,255,255,0.3);
+    border-radius: 20px;
+    backdrop-filter: blur(10px);
+    padding: 10px 20px;
+    
+    overflow: hidden;
+    margin-top: 100px;
+    display: flex;
+    gap: 10px;
+}
+.container-container{
+    position: fixed;
+    width: 80%;
+    height: 400px;
+    border: 1px solid rgba(255,255,255,0.3);
+    border-radius: 20px;
+    backdrop-filter: blur(10px);
+    padding: 10px 20px;
+    overflow: hidden;
+    margin-top: 300px;
+    display: flex;
+    gap: 10px;
+}
+.details{
+    width: 100%;
+    height: 100%;
+    padding-top: 15px;
+}
+
+
+
+
+.table__header {
+    width: 100%;
+    height: 10%;
+    background-color: #fff4;
+    padding: 1.5rem 1rem;
+    border-radius: 1rem;
+    
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+}
+
+.table__header .input-group {
+    width: 35%;
+    height: 100%;
+    background-color: #fff5;
+    padding: .9rem .8rem;
+    border-radius: 2rem;
+
+    display: flex;
+    justify-content: center;
+    align-items: center;
+
+    transition: .2s;
+}
+
+.table__header .input-group:hover {
+    width: 45%;
+    background-color: #fff8;
+    box-shadow: 0 .1rem .4rem #0002;
+}
+
+.table__header .input-group img {
+    width: 1.2rem;
+    height: 1.2rem;
+}
+
+.table__header .input-group input {
+    width: 100%;
+    padding: 0 .5rem 0 .3rem;
+    background-color: transparent;
+    border: none;
+    outline: none;
+}
+.table__body-dashboard {
+    width: 95%;
+    max-height: calc(69% - 1.6rem);
+    background-color: #fffb;
+
+    margin: .8rem auto;
+    border-radius: .6rem;
+
+    overflow: auto;
+    overflow: overlay;
+}
+.table__body {
+    width: 95%;
+    max-height: calc(89% - 1.6rem);
+    background-color: #fffb;
+
+    margin: .8rem auto;
+    border-radius: .6rem;
+
+    overflow: auto;
+    overflow: overlay;
+}
+.live {
+   display: flex;
+}
+.live h1{
+    font-size: 40px;
+}
+.live-box {
+    background-color: #86e49d;
+    height: 100px;
+    width: 200px;
+    margin: 15px 10px 10px;
+    padding: 10px 20px;
+    border-radius: 12px;
+}
+
+.table__body::-webkit-scrollbar{
+    width: 0.5rem;
+    height: 0.5rem;
+}
+
+.table__body::-webkit-scrollbar-thumb{
+    border-radius: .5rem;
+    background-color: #0004;
+    visibility: hidden;
+}
+
+.table__body:hover::-webkit-scrollbar-thumb{ 
+    visibility: visible;
+}
+
+
+table {
+    width: 100%;
+}
+
+td img {
+    width: 36px;
+    height: 36px;
+    margin-right: .5rem;
+    border-radius: 50%;
+
+    vertical-align: middle;
+}
+
+table, th, td {
+    border-collapse: collapse;
+    padding: 1rem;
+    text-align: left;
+}
+
+thead th {
+    position: sticky;
+    top: 0;
+    left: 0;
+    background-color: #d5d1defe;
+    cursor: pointer;
+    text-transform: capitalize;
+}
+
+tbody tr:nth-child(even) {
+    background-color: #0000000b;
+}
+
+tbody tr {
+    --delay: .1s;
+    transition: .5s ease-in-out var(--delay), background-color 0s;
+}
+
+tbody tr.hide {
+    opacity: 0;
+    transform: translateX(100%);
+}
+
+tbody tr:hover {
+    background-color: #fff6 !important;
+}
+
+tbody tr td,
+tbody tr td p,
+tbody tr td img {
+    transition: .2s ease-in-out;
+}
+
+tbody tr.hide td,
+tbody tr.hide td p {
+    padding: 0;
+    font: 0 / 0 sans-serif;
+    transition: .2s ease-in-out .5s;
+}
+
+tbody tr.hide td img {
+    width: 0;
+    height: 0;
+    transition: .2s ease-in-out .5s;
+}
+
+
+@media (max-width: 1000px) {
+    td:not(:first-of-type) {
+        min-width: 12.1rem;
+    }
+}
+
+thead th span.icon-arrow {
+    display: inline-block;
+    width: 1.3rem;
+    height: 1.3rem;
+    border-radius: 50%;
+    border: 1.4px solid transparent;
+    
+    text-align: center;
+    font-size: 1rem;
+    
+    margin-left: .5rem;
+    transition: .2s ease-in-out;
+}
+
+thead th:hover span.icon-arrow{
+    border: 1.4px solid #6c00bd;
+}
+
+thead th:hover {
+    color: #6c00bd;
+}
+
+thead th.active span.icon-arrow{
+    background-color: #6c00bd;
+    color: #fff;
+}
+
+thead th.asc span.icon-arrow{
+    transform: rotate(180deg);
+}
+
+thead th.active,tbody td.active {
+    color: #6c00bd;
+}
+
+
+
+.table__header, .table__body {
+    position: relative; /* Ensures proper containment */
+}
+
+
+.table__body .export__file {
+    position: absolute; /* Keeps the export button in the correct position within the section */
+    top: 1rem;
+    right: 1rem; /* Adjust to desired position within the section */
+}
+.export__file {
+    position: relative;
+    z-index: 10; /* Ensures the parent is on top */
+}
+
+.export__file .export__file-options {
+    position: absolute;
+    right: 0;
+    top: 2.5rem; /* Adjust to give space between button and options */
+    
+    width: 12rem;
+    border-radius: .5rem;
+    overflow: hidden;
+    text-align: center;
+    
+    opacity: 0;
+    transform: scale(.8);
+    visibility: hidden;
+    z-index: 100; /* Ensure the dropdown appears above other content */
+}
+
+.export__file input:checked + .export__file-options {
+    opacity: 1;
+    transform: scale(1);
+    visibility: visible; /* Make options visible when checkbox is checked */
+}
+
+.export__file .export__file-options label{
+    display: block;
+    width: 100%;
+    padding: .6rem 0;
+    background-color: #f2f2f2;
+    
+    display: flex;
+    justify-content: space-around;
+    align-items: center;
+
+    transition: .2s ease-in-out;
+}
+
+.export__file .export__file-options label:first-of-type{
+    padding: 1rem 0;
+    background-color: #86e49d !important;
+}
+
+.export__file .export__file-options label {
+    display: block;
+    width: 100%;
+    padding: .6rem 0;
+    background-color: #f2f2f2;
+    display: flex;
+    justify-content: space-around;
+    align-items: center;
+    transition: .2s ease-in-out;
+}
+
+.export__file .export__file-options label:hover {
+    transform: scale(1.05);
+    background-color: #fff;
+    cursor: pointer;
+}
+
+.export__file .export__file-options img {
+    width: 2rem;
+    height: auto;
+}
+
+
+
+.notification-container {
+    position: fixed;
+    top: 20px;
+    right: 20px;
+}
+
+#notification-btn {
+    background: none;
+    border: none;
+    cursor: pointer;
+    font-size: 24px;
+    position: relative;
+}
+
+#notification-btn i {
+    font-size: 32px;
+    color: #333;
+}
+
+.badge {
+    position: absolute;
+    top: 0;
+    right: -5px;
+    background-color: red;
+    color: white;
+    font-size: 14px;
+    padding: 5px;
+    border-radius: 50%;
+    display: none; /* Hide when no new notifications */
+}
+
